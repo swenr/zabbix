@@ -4,13 +4,15 @@
 Vagrant.configure("2") do |config|
 
 
-#  config.vm.define "firewall" do |config|
-#    config.vm.box = "generic/openbsd6"
-#    config.vm.hostname = "firewall"
-#    config.vm.network "private_network", ip: "192.168.5.1/24", name: "vboxnet5"
-#    config.vm.network "private_network", ip: "192.168.6.1/24", name: "vboxnet6"
+  config.vm.define "pfSense" do |config|
+    config.vm.box = "swenr/pfSense"
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+    config.ssh.shell = "/bin/sh"
+    config.vm.hostname = "pfSense"
+    config.vm.network "private_network", ip: "192.168.6.1/24", name: "vboxnet6"
+    config.vm.network "private_network", ip: "192.168.5.1/24", name: "vboxnet5"
 #    config.vm.provision "shell", path: "firewall.sh"
-#  end
+  end
 
   config.vm.define "zabbix-proxy" do |config|
     config.vm.box = "swenr/debian"
