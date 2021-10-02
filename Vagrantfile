@@ -6,6 +6,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "pfSense" do |config|
     config.vm.box = "swenr/pfSense"
+#    config.vm.box = "pfsense3"
     config.vm.synced_folder ".", "/vagrant", disabled: true
     config.ssh.shell = "/bin/sh"
     config.vm.hostname = "pfSense"

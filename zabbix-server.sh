@@ -14,6 +14,7 @@ sed -i 's/#//g' /etc/zabbix/nginx.conf
 sed -i 's/example.com/192.168.6.11/' /etc/zabbix/nginx.conf
 systemctl restart zabbix-server zabbix-agent nginx php7.4-fpm postgresql
 systemctl enable zabbix-server zabbix-agent nginx php7.4-fpm postgresql
-
+echo "up route add -net 192.168.5.0 netmask 255.255.255.0 gw 192.168.6.1" >> /etc/network/interfaces
+echo "down route del -net 192.168.5.0 netmask 255.255.255.0 gw 192.168.6.1" >> /etc/network/interfaces
 
 route add -net 192.168.5.0/24 gw 192.168.6.1

@@ -10,6 +10,7 @@ touch /etc/zabbix/database/zabbix.db
 chown -R zabbix /etc/zabbix/database
 zcat /usr/share/doc/zabbix-sql-scripts/sqlite3/schema.sql.gz | sqlite3 /etc/zabbix/database/zabbix.db
 
+sed -i 's/# ProxyMode=0/ProxyMode=1/' /etc/zabbix/zabbix_proxy.conf
 sed -i 's/Hostname=/#Hostname=/' /etc/zabbix/zabbix_proxy.conf
 sed -i 's/#\ HostnameItem=/HostnameItem=/' /etc/zabbix/zabbix_proxy.conf
 sed -i 's/Server\=127\.0\.0\.1/Server\=192\.168\.6\.11/' /etc/zabbix/zabbix_proxy.conf
@@ -29,5 +30,7 @@ sed -i 's/#\ HostnameItem=/HostnameItem=/' /etc/zabbix/zabbix_agentd.conf
 systemctl restart zabbix-agent
 systemctl enable zabbix-agent
 
+echo "up route add -net 192.168.6.0 netmask 255.255.255.0 gw 192.168.5.1" >> /etc/network/interfaces
+echo "down route del -net 192.168.6.0 netmask 255.255.255.0 gw 192.168.5.1" >> /etc/network/interfaces
 
 route add -net 192.168.6.0/24 gw 192.168.5.1
